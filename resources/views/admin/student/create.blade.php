@@ -1,11 +1,10 @@
 @extends('layouts.admin')
-
 @section('title', 'Tambah Siswa')
 
 @section('content')
 <div class="container">
   <h1>Tambah Data Siswa</h1>
-  <form action="{{ route('students.store') }}" method="POST">
+  <form action="{{ route('admin.students.store') }}" method="POST">
     @csrf
     <div class="mb-3">
       <label>NIS</label>
@@ -25,7 +24,7 @@
     </div>
     <div class="mb-3">
       <label>NISN</label>
-      <input type="text" name="nisn" class="form-control">
+      <input type="text" name="nisn" class="form-control" required>
     </div>
     <button type="submit" class="btn btn-success">Simpan</button>
   </form>

@@ -22,33 +22,26 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.student.create');
+    return view('admin.student.create');
     }
 
     /**
      * Simpan data siswa baru ke database (Store)
      */
-    public function store(Request $request)
+   public function store(Request $request)
     {
-        // validasi input
-        $request->validate([
-            'nis' => 'required|unique:students',
-            'nama_lengkap' => 'required',
-            'jenis_kelamin' => 'required',
-            'nisn' => 'nullable',
-        ]);
+    $request->validate([
+        'nis' => 'required|unique:students',
+        'nama_lengkap' => 'required',
+        'jenis_kelamin' => 'required',
+        'nisn' => 'required|unique:students',
+    ]);
 
-        // simpan data ke database
-        Student::create([
-            'nis' => $request->nis,
-            'nama_lengkap' => $request->nama_lengkap,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'nisn' => $request->nisn,
-        ]);
-
-        // kembali ke halaman daftar siswa
-        return redirect()->route('students.index')->with('success', 'Data siswa berhasil ditambahkan!');
+    Student::create($request->all());
+    return redirect()->route('admin.students.index')->with('success', 'Data berhasil disimpan!');
     }
+
+        
 
     /**
      * Tampilkan detail siswa berdasarkan ID (Show)
@@ -62,32 +55,24 @@ class StudentController extends Controller
     /**
      * Tampilkan form edit data siswa (Edit)
      */
-    public function edit($id)
+   public function edit(Student $student)
     {
-        $student = Student::findOrFail($id);
-        return view('admin.student.edit', compact('student'));
+    return view('admin.student.edit', compact('student'));
     }
-
     /**
      * Update data siswa (Update)
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Student $Student)
     {
-        $student = Student::findOrFail($id);
-
-        $request->validate([
+    
+        $validated = $request->validate([
             'nis' => 'required|unique:students,nis,' . $student->id,
             'nama_lengkap' => 'required',
             'jenis_kelamin' => 'required',
             'nisn' => 'nullable',
         ]);
 
-        $student->update([
-            'nis' => $request->nis,
-            'nama_lengkap' => $request->nama_lengkap,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'nisn' => $request->nisn,
-        ]);
+        $student->update($validated);
 
         return redirect()->route('admin.students.index')->with('success', 'Data siswa berhasil diupdate!');
     }
