@@ -81,11 +81,11 @@ public function show(Student $student)
     /**
      * Hapus data siswa (Delete)
      */
-    public function destroy($id)
+    public function destroy(Student $student)
     {
-        $student = Student::findOrFail($id);
+        
         $student->delete();
-
-        return redirect()->route('admin.students.index')->with('success', 'Data siswa berhasil dihapus!');
+        return redirect()->route('admin.students.index')->with('success', 'Data siswa berhasil dihapus');
     }
+
 }
