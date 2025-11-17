@@ -48,10 +48,10 @@ class StudentController extends Controller
     /**
      * Tampilkan detail siswa berdasarkan ID (Show)
      */
-public function show(Student $student)
-{
-    return view('admin.student.show', compact('student'));
-}
+    public function show(Student $student)
+    {
+        return view('admin.student.show', compact('student'));
+    }
 
     /**
      * Tampilkan form edit data siswa (Edit)
