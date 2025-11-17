@@ -9,5 +9,7 @@ Route::get('/', [LandingController::class, 'index'])->name('landing');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('students', StudentController::class);
+
+// Untuk CRUD table Student
+Route:: resource('students', StudentController::class);
 });

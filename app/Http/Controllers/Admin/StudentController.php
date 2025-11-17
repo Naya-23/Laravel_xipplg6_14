@@ -13,9 +13,10 @@ class StudentController extends Controller
      */
     public function index()
     {
-    $students = Student::all();
-    return view('admin.student.index', compact('students'));
+        $students = Student::all();
+        return view('admin.student.index', compact('students'));
     }
+
 
     /**
      * Tampilkan form tambah siswa (Create)
@@ -30,16 +31,17 @@ class StudentController extends Controller
      */
    public function store(Request $request)
     {
-    $request->validate([
-        'nis' => 'required|unique:students',
-        'nama_lengkap' => 'required',
-        'jenis_kelamin' => 'required',
-        'nisn' => 'required|unique:students',
-    ]);
+        $request->validate([
+            'nis' => 'required|unique:students',
+            'nama_lengkap' => 'required',
+            'jenis_kelamin' => 'required',
+            'nisn' => 'required|unique:students',
+        ]);
 
-    Student::create($request->all());
-    return redirect()->route('admin.students.index')->with('success', 'Data berhasil disimpan!');
+        Student::create($request->all());
+        return redirect()->route('admin.students.index')->with('success', 'Data berhasil disimpan!');
     }
+
 
         
 
