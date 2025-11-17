@@ -58,25 +58,25 @@ public function show(Student $student)
      */
    public function edit(Student $student)
     {
-    return view('admin.student.edit', compact('student'));
+        return view('admin.student.edit', compact('student'));
     }
+
     /**
      * Update data siswa (Update)
      */
-    public function update(Request $request,Student $Student)
+    public function update(Request $request, Student $student)
     {
-    
         $validated = $request->validate([
-            'nis' => 'required|unique:students,nis,' . $student->id,
+            'nis' => 'required',
             'nama_lengkap' => 'required',
             'jenis_kelamin' => 'required',
-            'nisn' => 'nullable',
+            'nisn' => 'required',
         ]);
 
         $student->update($validated);
-
-        return redirect()->route('admin.students.index')->with('success', 'Data siswa berhasil diupdate!');
+        return redirect()->route('admin.students.index')->with('success', 'Data siswa berhasil diperbarui');
     }
+
 
     /**
      * Hapus data siswa (Delete)
